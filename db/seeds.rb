@@ -26,7 +26,7 @@ end
 puts "Artworks generated!"
 
 puts "Generating shares..."
-10000.times do
+5000.times do
   viewer_id = 1 + rand(100)
   artwork_id = 1 + rand(1000)
   share = ArtworkShare.new(viewer_id: viewer_id, artwork_id: artwork_id)
@@ -37,7 +37,7 @@ end
 puts "Shares generated!"
 
 puts "Generating comments..."
-10000.times do
+2500.times do
   user_id = 1 + rand(100)
   artwork_id = 1 + rand(1000)
   body = Faker::Lorem.sentences(number: 1)[0]
@@ -47,3 +47,23 @@ puts "Generating comments..."
   end
 end
 puts "Comments generated!"
+
+puts "Generating likes..."
+Like.destroy_all
+5000.times do
+  user_id = 1 + rand(100)
+  comment = Comment.find_by(id: 1 + rand(1000))
+  like = Like.new(user_id: user_id, likeable: comment)
+  unless like.save
+    next
+  end
+end
+5000.times do
+  user_id = 1 + rand(1000)
+  artwork = Artwork.find_by(id: 1 + rand(1000))
+  like = Like.new(user_id: user_id, likeable: artwork)
+  unless like.save
+    next
+  end
+end
+puts "Likes generated!"
