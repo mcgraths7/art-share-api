@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+require 'byebug'
   def index
-    users = User.all
+    if query_params.empty?
+      users = User.all
+    else
+      users = User.where('users.username LIKE ?',  "%#{query_params[:username]}%")
+    end
     render json: users
   end
 
@@ -44,5 +49,8 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:username)
+  end
+  def query_params
+    params.permit(:username)
   end
 end
