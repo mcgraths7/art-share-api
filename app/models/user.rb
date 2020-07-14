@@ -27,4 +27,13 @@ class User < ApplicationRecord
            source: :artwork
   has_many :comments,
            dependent: :destroy
+  has_many :likes
+  has_many :liked_artworks, 
+           through: :likes,
+           source: :likeable,
+           source_type: 'Artwork'
+  has_many :liked_comments,
+           through: :likes,
+           source: :likeable,
+           source_type: 'Comment'
 end

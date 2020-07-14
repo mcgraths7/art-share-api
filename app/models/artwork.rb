@@ -11,6 +11,7 @@
 #
 
 class Artwork < ApplicationRecord
+  include Likeable
   validates :title, presence: true
   validates :artist_id, presence:true
   validate :not_same_title_per_artist
