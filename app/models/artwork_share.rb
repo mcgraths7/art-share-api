@@ -29,10 +29,10 @@ class ArtworkShare < ApplicationRecord
   end
 
   def cant_share_artwork_with_artist
+  return if artwork.blank?
     artist = artwork.artist
     if artist[:id] == self[:viewer_id]
       errors[:artwork] << 'cannot be shared with the artist'
     end
   end
-
 end

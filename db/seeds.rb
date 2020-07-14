@@ -20,7 +20,7 @@ puts "Generating artworks..."
   artist_id = 1 + rand(100)
   artwork = Artwork.new(title: title, image_url: image_url, artist_id: artist_id)
   unless artwork.save
-    continue
+    next
   end
 end
 puts "Artworks generated!"
@@ -35,3 +35,15 @@ puts "Generating shares..."
   end
 end
 puts "Shares generated!"
+
+puts "Generating comments..."
+10000.times do
+  user_id = 1 + rand(100)
+  artwork_id = 1 + rand(1000)
+  body = Faker::Lorem.sentences(number: 1)[0]
+  comment = Comment.new(user_id: user_id, artwork_id: artwork_id, body: body)
+  unless comment.save
+    next
+  end
+end
+puts "Comments generated!"

@@ -30,6 +30,8 @@ class Artwork < ApplicationRecord
            primary_key: :id,
            through: :artwork_shares,
            source: :viewer
+  has_many :comments,
+           dependent: :destroy
 
   def not_same_title_per_artist
     art_title = Artwork.find_by(title: self[:title], artist_id: self[:artist_id])
